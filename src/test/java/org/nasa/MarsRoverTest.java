@@ -25,14 +25,24 @@ public class MarsRoverTest {
   /*  N
 
     3 * * * *
-    2 * * * *
-W   1 * . X *   E
-    0 * * * *
+    2 * * . *
+W   1 * . X .   E
+    0 * * . *
       0 1 2 3
 
         S
    */
 
+
+  @Test
+  public void should_move_back_ward_when_facing_direction_is_north() {
+    MarsRover rover = new MarsRover(2, 1, 'N');
+
+    rover.moveBackward();
+
+    Assertions.assertThat(rover.x).isEqualTo(1);
+    Assertions.assertThat(rover.y).isEqualTo(0);
+  }
 
   @Test
   public void should_move_back_ward_when_facing_direction_is_east() {
