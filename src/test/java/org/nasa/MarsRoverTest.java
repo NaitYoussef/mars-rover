@@ -39,7 +39,7 @@ public class MarsRoverTest {
 
     private boolean move(Direction direction) {
       Position nextPosition = determineNextPosition(direction);
-      if(map.land[nextPosition.y][nextPosition.x] == 1){
+      if(map.isObstacle(nextPosition)){
         return false;
       }
       this.position = nextPosition;
@@ -103,6 +103,10 @@ public class MarsRoverTest {
           {1, 0, 0, 0}
       };
       return new MarsMap(map);
+    }
+
+    public boolean isObstacle(Position position){
+      return this.land[position.y][position.x] == 1;
     }
   }
 
@@ -361,6 +365,15 @@ W   1 * . X .   E
 
   @Nested
   class BackwardScenarios {
+
+    @Test
+    void should_not_move_when_obstacle() {
+      MarsRover rover = new MarsRover(1, 3, EAST, MarsMap.withObstacles());
+
+      rover.moveBackward();
+
+      assertThat(rover.position).isEqualTo(new Position(1, 3));
+    }
 
     @Test
     public void should_move_north_when_facing_direction_is_south() {
