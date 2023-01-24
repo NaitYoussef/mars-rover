@@ -7,6 +7,7 @@ import static org.nasa.MarsRoverTest.Direction.SOUTH;
 import static org.nasa.MarsRoverTest.Direction.WEST;
 
 import java.util.Objects;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 public class MarsRoverTest {
@@ -36,6 +37,9 @@ public class MarsRoverTest {
       }
       position.x--;
     }
+
+    public void moveForward() {
+    }
   }
 
   public static class Position {
@@ -64,6 +68,11 @@ public class MarsRoverTest {
     public int hashCode() {
       return Objects.hash(x, y);
     }
+
+    @Override
+    public String toString() {
+      return "(" + x + ", " + y + ")";
+    }
   }
 
   public enum Direction {
@@ -87,40 +96,57 @@ W   1 * . X .   E
         S
    */
 
-  @Test
-  public void should_move_backward_when_facing_direction_is_south() {
-    MarsRover rover = new MarsRover(2, 1, SOUTH);
+  @Nested
+  class ForwardScenarios {
 
-    rover.moveBackward();
+    @Test
+    void should_move_south_when_facing_south() {
+      MarsRover rover = new MarsRover(2, 1, SOUTH);
 
-    assertThat(rover.position).isEqualTo(new Position(2, 2));
+      rover.moveForward();
+
+      assertThat(rover.position).isEqualTo(new Position(2, 0));
+    }
   }
 
-  @Test
-  public void should_move_backward_when_facing_direction_is_west() {
-    MarsRover rover = new MarsRover(2, 1, WEST);
+  @Nested
+  class BackwardScenarios {
 
-    rover.moveBackward();
+    @Test
+    public void should_move_north_when_facing_direction_is_south() {
+      MarsRover rover = new MarsRover(2, 1, SOUTH);
 
-    assertThat(rover.position).isEqualTo(new Position(3, 1));
-  }
+      rover.moveBackward();
 
-  @Test
-  public void should_move_backward_when_facing_direction_is_north() {
-    MarsRover rover = new MarsRover(2, 1, NORTH);
+      assertThat(rover.position).isEqualTo(new Position(2, 2));
+    }
 
-    rover.moveBackward();
+    @Test
+    public void should_move_east_when_facing_direction_is_west() {
+      MarsRover rover = new MarsRover(2, 1, WEST);
 
-    assertThat(rover.position).isEqualTo(new Position(2, 0));
-  }
+      rover.moveBackward();
 
-  @Test
-  public void should_move_backward_when_facing_direction_is_east() {
-    MarsRover rover = new MarsRover(2, 1, EAST);
+      assertThat(rover.position).isEqualTo(new Position(3, 1));
+    }
 
-    rover.moveBackward();
+    @Test
+    public void should_move_south_when_facing_direction_is_north() {
+      MarsRover rover = new MarsRover(2, 1, NORTH);
 
-    assertThat(rover.position).isEqualTo(new Position(1, 1));
+      rover.moveBackward();
+
+      assertThat(rover.position).isEqualTo(new Position(2, 0));
+    }
+
+    @Test
+    public void should_move_east_when_facing_direction_is_east() {
+      MarsRover rover = new MarsRover(2, 1, EAST);
+
+      rover.moveBackward();
+
+      assertThat(rover.position).isEqualTo(new Position(1, 1));
+    }
   }
 
 }
