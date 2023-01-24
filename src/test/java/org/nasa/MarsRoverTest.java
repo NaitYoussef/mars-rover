@@ -43,6 +43,16 @@ W   1 * . X .   E
    */
 
   @Test
+  public void should_move_back_ward_when_facing_direction_is_south() {
+    MarsRover rover = new MarsRover(2, 1, 'S');
+
+    rover.moveBackward();
+
+    assertThat(rover.x).isEqualTo(2);
+    assertThat(rover.y).isEqualTo(2);
+  }
+
+  @Test
   public void should_move_back_ward_when_facing_direction_is_west() {
     MarsRover rover = new MarsRover(2, 1, 'W');
 
