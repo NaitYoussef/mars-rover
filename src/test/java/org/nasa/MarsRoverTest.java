@@ -27,6 +27,10 @@ public class MarsRoverTest {
         x++;
         return;
       }
+      if (initialDirection == 'S') {
+        y++;
+        return;
+      }
       x--;
     }
   }
