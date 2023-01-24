@@ -32,6 +32,7 @@ public class MarsRoverTest {
       }
       if (initialDirection == WEST) {
         x++;
+        position.x++;
         return;
       }
       if (initialDirection == SOUTH) {
@@ -44,6 +45,7 @@ public class MarsRoverTest {
   }
 
   public static class Position {
+
     private int x;
     private int y;
 
@@ -69,6 +71,7 @@ public class MarsRoverTest {
       return Objects.hash(x, y);
     }
   }
+
   public enum Direction {
     NORTH('N'), SOUTH('S'), WEST('W'), EAST('E');
 
@@ -105,8 +108,7 @@ W   1 * . X .   E
 
     rover.moveBackward();
 
-    assertThat(rover.x).isEqualTo(3);
-    assertThat(rover.y).isEqualTo(1);
+    assertThat(rover.position).isEqualTo(new Position(3, 1));
   }
 
   @Test
