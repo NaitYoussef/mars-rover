@@ -1,6 +1,10 @@
 package org.nasa;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.nasa.MarsRoverTest.Command.B;
+import static org.nasa.MarsRoverTest.Command.F;
+import static org.nasa.MarsRoverTest.Command.L;
+import static org.nasa.MarsRoverTest.Command.R;
 import static org.nasa.MarsRoverTest.Direction.EAST;
 import static org.nasa.MarsRoverTest.Direction.NORTH;
 import static org.nasa.MarsRoverTest.Direction.SOUTH;
@@ -54,8 +58,23 @@ public class MarsRoverTest {
       direction = direction.turnLeft();
     }
 
-    public void executeCommands(char[] commands) {
-
+    public void executeCommands(Command[] commands) {
+      for (Command command : commands) {
+        switch (command) {
+          case F:
+            this.moveForward();
+            break;
+          case B:
+            this.moveBackward();
+            break;
+          case L:
+            this.turnLeft();
+            break;
+          case R:
+            this.turnRight();
+            break;
+        }
+      }
     }
   }
 
@@ -134,6 +153,16 @@ public class MarsRoverTest {
     }
   }
 
+  public enum Command {
+    F('F'), B('B'), L('L'), R('R');
+
+    private char command;
+
+    Command(char command) {
+      this.command = command;
+    }
+  }
+
   /*  N
 
     3 * * * *
@@ -151,7 +180,7 @@ W   1 * . X .   E
     @Test
     void should_execute_sequence_without_failure() {
       MarsRover rover = new MarsRover(2, 1, WEST);
-      char[] commands = {'R', 'F', 'L', 'B'};
+      Command[] commands = {R, F, L, B};
 
       rover.executeCommands(commands);
 
