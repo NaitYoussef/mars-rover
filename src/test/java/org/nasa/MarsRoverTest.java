@@ -39,6 +39,10 @@ public class MarsRoverTest {
     }
 
     public void moveForward() {
+      if (initialDirection == WEST) {
+        position.x--;
+        return;
+      }
       position.y--;
     }
   }
