@@ -14,28 +14,18 @@ public class MarsRoverTest {
 
   public static class MarsRover {
 
+    private final Compass compass;
     private Direction direction;
     private Position position;
 
     public MarsRover(int x, int y, Direction direction) {
       this.direction = direction;
       this.position = new Position(x, y);
+      this.compass = new Compass();
     }
 
     public void moveBackward() {
-      if (direction == NORTH) {
-        move(SOUTH);
-        return;
-      }
-      if (direction == WEST) {
-        move(EAST);
-        return;
-      }
-      if (direction == SOUTH) {
-        move(NORTH);
-        return;
-      }
-      move(WEST);
+      move(compass.opposite(direction));
     }
 
     public void moveForward() {
@@ -87,6 +77,30 @@ public class MarsRoverTest {
         return;
       }
       direction = SOUTH;
+    }
+  }
+
+  public static class Compass {
+
+    public Direction opposite(Direction direction) {
+      Direction opposite;
+      switch (direction) {
+        case NORTH:
+          opposite = SOUTH;
+          break;
+        case SOUTH:
+          opposite = NORTH;
+          break;
+        case WEST:
+          opposite = EAST;
+          break;
+        case EAST:
+          opposite = WEST;
+          break;
+        default:
+          throw new IllegalArgumentException(direction + " is not handled");
+      }
+      return opposite;
     }
   }
 
