@@ -18,6 +18,10 @@ public class MarsRoverTest {
     }
 
     public void moveBackward() {
+      if (initialDirection == 'N') {
+        y--;
+        return;
+      }
       x--;
     }
   }
@@ -32,7 +36,6 @@ W   1 * . X .   E
 
         S
    */
-
 
   @Test
   public void should_move_back_ward_when_facing_direction_is_north() {
