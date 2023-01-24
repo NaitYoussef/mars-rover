@@ -15,18 +15,16 @@ public class MarsRoverTest {
 
   public static class MarsRover {
 
-    private final Compass compass;
     private Direction direction;
     private Position position;
 
     public MarsRover(int x, int y, Direction direction) {
       this.direction = direction;
       this.position = new Position(x, y);
-      this.compass = new Compass();
     }
 
     public void moveBackward() {
-      move(compass.opposite(direction));
+      move(direction.opposite());
     }
 
     public void moveForward() {
@@ -54,13 +52,6 @@ public class MarsRoverTest {
 
     public void turnLeft() {
       direction = direction.turnLeft();
-    }
-  }
-
-  public static class Compass {
-
-    public Direction opposite(Direction direction) {
-      return direction.opposite();
     }
   }
 
@@ -109,7 +100,8 @@ public class MarsRoverTest {
     }
 
     public Direction opposite() {
-      return fromAngle((angle + 50) % 100);
+      int nextAngleOffset = calculateNextAngleOffset(calculateNextAngleOffset(angle));
+      return fromAngle(nextAngleOffset);
     }
 
     public Direction nextOnTheRight() {
