@@ -42,6 +42,7 @@ public class MarsRoverTest {
         return;
       }
       x--;
+      position.x--;
     }
   }
 
@@ -127,8 +128,7 @@ W   1 * . X .   E
 
     rover.moveBackward();
 
-    assertThat(rover.x).isEqualTo(1);
-    assertThat(rover.y).isEqualTo(1);
+    assertThat(rover.position).isEqualTo(new Position(1, 1));
   }
 
 }
