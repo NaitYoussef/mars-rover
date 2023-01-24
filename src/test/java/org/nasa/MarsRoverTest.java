@@ -13,35 +13,27 @@ public class MarsRoverTest {
 
   public static class MarsRover {
 
-    private int x;
-    private int y;
     private Direction initialDirection;
     private Position position;
 
     public MarsRover(int x, int y, Direction initialDirection) {
-      this.x = x;
-      this.y = y;
       this.initialDirection = initialDirection;
       this.position = new Position(x, y);
     }
 
     public void moveBackward() {
       if (initialDirection == NORTH) {
-        y--;
         position.y--;
         return;
       }
       if (initialDirection == WEST) {
-        x++;
         position.x++;
         return;
       }
       if (initialDirection == SOUTH) {
-        y++;
         position.y++;
         return;
       }
-      x--;
       position.x--;
     }
   }
