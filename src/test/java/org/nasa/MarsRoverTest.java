@@ -24,34 +24,37 @@ public class MarsRoverTest {
 
     public void moveBackward() {
       if (direction == NORTH) {
-        position.y--;
+        move(SOUTH);
         return;
       }
       if (direction == WEST) {
-        position.x++;
+        move(EAST);
         return;
       }
       if (direction == SOUTH) {
-        position.y++;
+        move(NORTH);
         return;
       }
-      position.x--;
+      move(WEST);
     }
 
     public void moveForward() {
+      move(direction);
+    }
+
+    private void move(Direction direction) {
+      if (direction == NORTH) {
+        this.position.y++;
+      }
+      if (direction == SOUTH) {
+        this.position.y--;
+      }
       if (direction == WEST) {
-        position.x--;
-        return;
+        this.position.x--;
       }
       if (direction == EAST) {
-        position.x++;
-        return;
+        this.position.x++;
       }
-      if (direction == NORTH) {
-        position.y++;
-        return;
-      }
-      position.y--;
     }
 
     public void turnRight() {
