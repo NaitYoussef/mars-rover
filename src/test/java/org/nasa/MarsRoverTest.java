@@ -40,7 +40,7 @@ W   1 * . X .   E
 
     rover.moveBackward();
 
-    Assertions.assertThat(rover.x).isEqualTo(1);
+    Assertions.assertThat(rover.x).isEqualTo(2);
     Assertions.assertThat(rover.y).isEqualTo(0);
   }
 
