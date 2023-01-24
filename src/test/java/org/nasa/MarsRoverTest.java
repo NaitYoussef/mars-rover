@@ -60,20 +60,7 @@ public class MarsRoverTest {
 
     public void executeCommands(Command[] commands) {
       for (Command command : commands) {
-        switch (command) {
-          case F:
-            this.moveForward();
-            break;
-          case B:
-            this.moveBackward();
-            break;
-          case L:
-            this.turnLeft();
-            break;
-          case R:
-            this.turnRight();
-            break;
-        }
+        command.execute(this);
       }
     }
   }
@@ -154,12 +141,26 @@ public class MarsRoverTest {
   }
 
   public enum Command {
-    F('F'), B('B'), L('L'), R('R');
+    F('F', MarsRover::moveForward),
+    B('B', MarsRover::moveBackward),
+    L('L', MarsRover::turnLeft),
+    R('R', MarsRover::turnRight);
 
     private char command;
+    private RoverAction action;
 
-    Command(char command) {
+    Command(char command, RoverAction action) {
       this.command = command;
+      this.action = action;
+    }
+
+    public void execute(MarsRover marsRover) {
+      this.action.execute(marsRover);
+    }
+
+    interface RoverAction {
+
+      void execute(MarsRover marsRover);
     }
   }
 
