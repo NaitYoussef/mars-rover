@@ -1,6 +1,7 @@
 package org.nasa;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.nasa.MarsRoverTest.Direction.EAST;
 import static org.nasa.MarsRoverTest.Direction.NORTH;
 import static org.nasa.MarsRoverTest.Direction.SOUTH;
 import static org.nasa.MarsRoverTest.Direction.WEST;
@@ -93,7 +94,7 @@ W   1 * . X .   E
 
   @Test
   public void should_move_back_ward_when_facing_direction_is_east() {
-    MarsRover rover = new MarsRover(2, 1, 'E', null);
+    MarsRover rover = new MarsRover(2, 1, 'E', EAST);
 
     rover.moveBackward();
 
