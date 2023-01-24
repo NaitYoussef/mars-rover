@@ -1,6 +1,7 @@
 package org.nasa;
 
-import org.assertj.core.api.Assertions;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 
 public class MarsRoverTest {
@@ -47,8 +48,8 @@ W   1 * . X .   E
 
     rover.moveBackward();
 
-    Assertions.assertThat(rover.x).isEqualTo(3);
-    Assertions.assertThat(rover.y).isEqualTo(1);
+    assertThat(rover.x).isEqualTo(3);
+    assertThat(rover.y).isEqualTo(1);
   }
 
   @Test
@@ -57,8 +58,8 @@ W   1 * . X .   E
 
     rover.moveBackward();
 
-    Assertions.assertThat(rover.x).isEqualTo(2);
-    Assertions.assertThat(rover.y).isEqualTo(0);
+    assertThat(rover.x).isEqualTo(2);
+    assertThat(rover.y).isEqualTo(0);
   }
 
   @Test
@@ -67,8 +68,8 @@ W   1 * . X .   E
 
     rover.moveBackward();
 
-    Assertions.assertThat(rover.x).isEqualTo(1);
-    Assertions.assertThat(rover.y).isEqualTo(1);
+    assertThat(rover.x).isEqualTo(1);
+    assertThat(rover.y).isEqualTo(1);
   }
 
 }
