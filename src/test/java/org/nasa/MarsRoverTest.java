@@ -39,6 +39,7 @@ public class MarsRoverTest {
     }
 
     public void moveForward() {
+      position.y--;
     }
   }
 
