@@ -28,6 +28,7 @@ public class MarsRoverTest {
     public void moveBackward() {
       if (initialDirection == NORTH) {
         y--;
+        position.y--;
         return;
       }
       if (initialDirection == WEST) {
@@ -117,8 +118,7 @@ W   1 * . X .   E
 
     rover.moveBackward();
 
-    assertThat(rover.x).isEqualTo(2);
-    assertThat(rover.y).isEqualTo(0);
+    assertThat(rover.position).isEqualTo(new Position(2, 0));
   }
 
   @Test
