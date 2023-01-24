@@ -72,6 +72,10 @@ public class MarsRoverTest {
       }
       direction = SOUTH;
     }
+
+    public void turnLeft() {
+
+    }
   }
 
   public static class Position {
@@ -127,6 +131,20 @@ W   1 * . X .   E
 
         S
    */
+
+ @Nested
+ class MoveLeftScenarios {
+
+   @Test
+   void should_turn_to_south_when_facing_west() {
+     MarsRover rover = new MarsRover(2, 1, WEST);
+
+     rover.turnLeft();
+
+     assertThat(rover.direction).isEqualTo(SOUTH);
+   }
+
+ }
 
   @Nested
   class MoveRightScenarios {
