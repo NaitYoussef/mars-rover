@@ -74,7 +74,7 @@ public class MarsRoverTest {
     }
 
     public void turnLeft() {
-
+      direction = SOUTH;
     }
   }
 
