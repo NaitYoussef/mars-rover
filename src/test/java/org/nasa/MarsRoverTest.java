@@ -53,6 +53,10 @@ public class MarsRoverTest {
     public void turnLeft() {
       direction = direction.turnLeft();
     }
+
+    public void executeCommands(char[] commands) {
+
+    }
   }
 
   public static class Position {
@@ -140,6 +144,20 @@ W   1 * . X .   E
 
         S
    */
+
+  @Nested
+  class CommandsScenarios {
+
+    @Test
+    void should_execute_sequence_without_failure() {
+      MarsRover rover = new MarsRover(2, 1, WEST);
+      char[] commands = {'R', 'F', 'L', 'B'};
+
+      rover.executeCommands(commands);
+
+      assertThat(rover.position).isEqualTo(new Position(3, 2));
+    }
+  }
 
   @Nested
   class MoveLeftScenarios {
