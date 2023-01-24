@@ -37,19 +37,29 @@ public class MarsRoverTest {
       move(direction);
     }
 
-    private void move(Direction direction) {
+    private boolean move(Direction direction) {
+      Position nextPosition = determineNextPosition(direction);
+      if(map.land[nextPosition.y][nextPosition.x] == 1){
+        return false;
+      }
+      this.position = nextPosition;
+      return true;
+    }
+
+    private Position determineNextPosition(Direction direction) {
       if (direction == NORTH) {
-        this.position.y++;
+        return new Position(this.position.x, this.position.y + 1);
       }
       if (direction == SOUTH) {
-        this.position.y--;
+        return new Position(this.position.x, this.position.y - 1);
       }
       if (direction == WEST) {
-        this.position.x--;
+        return new Position(this.position.x - 1, this.position.y);
       }
       if (direction == EAST) {
-        this.position.x++;
+        return new Position(this.position.x + 1, this.position.y);
       }
+      throw new IllegalArgumentException(direction + " is not handled");
     }
 
     private void turnRight() {
@@ -67,7 +77,7 @@ public class MarsRoverTest {
     }
   }
 
-  public static class MarsMap{
+  public static class MarsMap {
 
     int[][] land;
 
@@ -75,7 +85,7 @@ public class MarsRoverTest {
       this.land = land;
     }
 
-    public static MarsMap withoutObstacles(){
+    public static MarsMap withoutObstacles() {
       int[][] map = {
           {0, 0, 0, 0},
           {0, 0, 0, 0},
@@ -85,7 +95,7 @@ public class MarsRoverTest {
       return new MarsMap(map);
     }
 
-    public static MarsMap withObstacles(){
+    public static MarsMap withObstacles() {
       int[][] map = {
           {0, 0, 0, 1},
           {0, 0, 1, 0},
@@ -302,6 +312,15 @@ W   1 * . X .   E
 
   @Nested
   class ForwardScenarios {
+
+    @Test
+    void should_not_move_when_obstacle() {
+      MarsRover rover = new MarsRover(2, 0, EAST, MarsMap.withObstacles());
+
+      rover.moveForward();
+
+      assertThat(rover.position).isEqualTo(new Position(2, 0));
+    }
 
     @Test
     void should_move_south_when_facing_south() {
