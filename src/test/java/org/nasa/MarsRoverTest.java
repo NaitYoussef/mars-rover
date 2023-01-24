@@ -20,10 +20,12 @@ public class MarsRoverTest {
   public static class MarsRover {
 
     private Direction direction;
+    private MarsMap map;
     private Position position;
 
-    public MarsRover(int x, int y, Direction direction) {
+    public MarsRover(int x, int y, Direction direction, MarsMap map) {
       this.direction = direction;
+      this.map = map;
       this.position = new Position(x, y);
     }
 
@@ -62,6 +64,35 @@ public class MarsRoverTest {
       for (Command command : commands) {
         command.execute(this);
       }
+    }
+  }
+
+  public static class MarsMap{
+
+    int[][] land;
+
+    public MarsMap(int[][] land) {
+      this.land = land;
+    }
+
+    public static MarsMap withoutObstacles(){
+      int[][] map = {
+          {0, 0, 0, 0},
+          {0, 0, 0, 0},
+          {0, 0, 0, 0},
+          {0, 0, 0, 0}
+      };
+      return new MarsMap(map);
+    }
+
+    public static MarsMap withObstacles(){
+      int[][] map = {
+          {0, 0, 0, 1},
+          {0, 0, 1, 0},
+          {0, 1, 0, 0},
+          {1, 0, 0, 0}
+      };
+      return new MarsMap(map);
     }
   }
 
@@ -180,7 +211,7 @@ W   1 * . X .   E
 
     @Test
     void should_execute_sequence_without_failure() {
-      MarsRover rover = new MarsRover(2, 1, WEST);
+      MarsRover rover = new MarsRover(2, 1, WEST, MarsMap.withoutObstacles());
       Command[] commands = {R, F, L, B};
 
       rover.executeCommands(commands);
@@ -194,7 +225,7 @@ W   1 * . X .   E
 
     @Test
     void should_turn_to_south_when_facing_west() {
-      MarsRover rover = new MarsRover(2, 1, WEST);
+      MarsRover rover = new MarsRover(2, 1, WEST, MarsMap.withoutObstacles());
 
       rover.turnLeft();
 
@@ -203,7 +234,7 @@ W   1 * . X .   E
 
     @Test
     void should_turn_to_west_when_facing_north() {
-      MarsRover rover = new MarsRover(2, 1, NORTH);
+      MarsRover rover = new MarsRover(2, 1, NORTH, MarsMap.withoutObstacles());
 
       rover.turnLeft();
 
@@ -212,7 +243,7 @@ W   1 * . X .   E
 
     @Test
     void should_turn_to_north_when_facing_east() {
-      MarsRover rover = new MarsRover(2, 1, EAST);
+      MarsRover rover = new MarsRover(2, 1, EAST, MarsMap.withoutObstacles());
 
       rover.turnLeft();
 
@@ -221,7 +252,7 @@ W   1 * . X .   E
 
     @Test
     void should_turn_to_east_when_facing_south() {
-      MarsRover rover = new MarsRover(2, 1, SOUTH);
+      MarsRover rover = new MarsRover(2, 1, SOUTH, MarsMap.withoutObstacles());
 
       rover.turnLeft();
 
@@ -234,7 +265,7 @@ W   1 * . X .   E
 
     @Test
     void should_turn_to_north_when_facing_west() {
-      MarsRover rover = new MarsRover(2, 1, WEST);
+      MarsRover rover = new MarsRover(2, 1, WEST, MarsMap.withoutObstacles());
 
       rover.turnRight();
 
@@ -243,7 +274,7 @@ W   1 * . X .   E
 
     @Test
     void should_turn_to_west_when_facing_south() {
-      MarsRover rover = new MarsRover(2, 1, SOUTH);
+      MarsRover rover = new MarsRover(2, 1, SOUTH, MarsMap.withoutObstacles());
 
       rover.turnRight();
 
@@ -252,7 +283,7 @@ W   1 * . X .   E
 
     @Test
     void should_turn_to_south_when_facing_east() {
-      MarsRover rover = new MarsRover(2, 1, EAST);
+      MarsRover rover = new MarsRover(2, 1, EAST, MarsMap.withoutObstacles());
 
       rover.turnRight();
 
@@ -261,7 +292,7 @@ W   1 * . X .   E
 
     @Test
     void should_turn_to_east_when_facing_north() {
-      MarsRover rover = new MarsRover(2, 1, NORTH);
+      MarsRover rover = new MarsRover(2, 1, NORTH, MarsMap.withoutObstacles());
 
       rover.turnRight();
 
@@ -274,7 +305,7 @@ W   1 * . X .   E
 
     @Test
     void should_move_south_when_facing_south() {
-      MarsRover rover = new MarsRover(2, 1, SOUTH);
+      MarsRover rover = new MarsRover(2, 1, SOUTH, MarsMap.withoutObstacles());
 
       rover.moveForward();
 
@@ -283,7 +314,7 @@ W   1 * . X .   E
 
     @Test
     void should_move_west_when_facing_west() {
-      MarsRover rover = new MarsRover(2, 1, WEST);
+      MarsRover rover = new MarsRover(2, 1, WEST, MarsMap.withoutObstacles());
 
       rover.moveForward();
 
@@ -292,7 +323,7 @@ W   1 * . X .   E
 
     @Test
     void should_move_east_when_facing_east() {
-      MarsRover rover = new MarsRover(2, 1, EAST);
+      MarsRover rover = new MarsRover(2, 1, EAST, MarsMap.withoutObstacles());
 
       rover.moveForward();
 
@@ -301,7 +332,7 @@ W   1 * . X .   E
 
     @Test
     void should_move_north_when_facing_north() {
-      MarsRover rover = new MarsRover(2, 1, NORTH);
+      MarsRover rover = new MarsRover(2, 1, NORTH, MarsMap.withoutObstacles());
 
       rover.moveForward();
 
@@ -314,7 +345,7 @@ W   1 * . X .   E
 
     @Test
     public void should_move_north_when_facing_direction_is_south() {
-      MarsRover rover = new MarsRover(2, 1, SOUTH);
+      MarsRover rover = new MarsRover(2, 1, SOUTH, MarsMap.withoutObstacles());
 
       rover.moveBackward();
 
@@ -323,7 +354,7 @@ W   1 * . X .   E
 
     @Test
     public void should_move_east_when_facing_direction_is_west() {
-      MarsRover rover = new MarsRover(2, 1, WEST);
+      MarsRover rover = new MarsRover(2, 1, WEST, MarsMap.withoutObstacles());
 
       rover.moveBackward();
 
@@ -332,7 +363,7 @@ W   1 * . X .   E
 
     @Test
     public void should_move_south_when_facing_direction_is_north() {
-      MarsRover rover = new MarsRover(2, 1, NORTH);
+      MarsRover rover = new MarsRover(2, 1, NORTH, MarsMap.withoutObstacles());
 
       rover.moveBackward();
 
@@ -341,7 +372,7 @@ W   1 * . X .   E
 
     @Test
     public void should_move_east_when_facing_direction_is_east() {
-      MarsRover rover = new MarsRover(2, 1, EAST);
+      MarsRover rover = new MarsRover(2, 1, EAST, MarsMap.withoutObstacles());
 
       rover.moveBackward();
 
