@@ -16,7 +16,7 @@ public class MarsRoverTest {
     private int y;
     private Direction initialDirection;
 
-    public MarsRover(int x, int y, Direction initialDirection) {
+    public MarsRover(int x, int y, Direction initialDirection, Position position) {
       this.x = x;
       this.y = y;
       this.initialDirection = initialDirection;
@@ -39,6 +39,15 @@ public class MarsRoverTest {
     }
   }
 
+  public static class Position {
+    private int x;
+    private int y;
+
+    public Position(int x, int y) {
+      this.x = x;
+      this.y = y;
+    }
+  }
   public enum Direction {
     NORTH('N'), SOUTH('S'), WEST('W'), EAST('E');
 
@@ -62,7 +71,7 @@ W   1 * . X .   E
 
   @Test
   public void should_move_backward_when_facing_direction_is_south() {
-    MarsRover rover = new MarsRover(2, 1, SOUTH);
+    MarsRover rover = new MarsRover(2, 1, SOUTH, null);
 
     rover.moveBackward();
 
@@ -72,7 +81,7 @@ W   1 * . X .   E
 
   @Test
   public void should_move_backward_when_facing_direction_is_west() {
-    MarsRover rover = new MarsRover(2, 1, WEST);
+    MarsRover rover = new MarsRover(2, 1, WEST, null);
 
     rover.moveBackward();
 
@@ -82,7 +91,7 @@ W   1 * . X .   E
 
   @Test
   public void should_move_backward_when_facing_direction_is_north() {
-    MarsRover rover = new MarsRover(2, 1, NORTH);
+    MarsRover rover = new MarsRover(2, 1, NORTH, null);
 
     rover.moveBackward();
 
@@ -92,7 +101,7 @@ W   1 * . X .   E
 
   @Test
   public void should_move_backward_when_facing_direction_is_east() {
-    MarsRover rover = new MarsRover(2, 1, EAST);
+    MarsRover rover = new MarsRover(2, 1, EAST, null);
 
     rover.moveBackward();
 
