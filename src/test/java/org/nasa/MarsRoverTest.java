@@ -134,6 +134,15 @@ W   1 * . X .   E
 
       assertThat(rover.position).isEqualTo(new Position(3, 1));
     }
+
+    @Test
+    void should_move_north_when_facing_north() {
+      MarsRover rover = new MarsRover(2, 1, NORTH);
+
+      rover.moveForward();
+
+      assertThat(rover.position).isEqualTo(new Position(2, 2));
+    }
   }
 
   @Nested
