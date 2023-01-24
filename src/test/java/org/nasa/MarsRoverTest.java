@@ -14,24 +14,24 @@ public class MarsRoverTest {
 
   public static class MarsRover {
 
-    private Direction initialDirection;
+    private Direction direction;
     private Position position;
 
-    public MarsRover(int x, int y, Direction initialDirection) {
-      this.initialDirection = initialDirection;
+    public MarsRover(int x, int y, Direction direction) {
+      this.direction = direction;
       this.position = new Position(x, y);
     }
 
     public void moveBackward() {
-      if (initialDirection == NORTH) {
+      if (direction == NORTH) {
         position.y--;
         return;
       }
-      if (initialDirection == WEST) {
+      if (direction == WEST) {
         position.x++;
         return;
       }
-      if (initialDirection == SOUTH) {
+      if (direction == SOUTH) {
         position.y++;
         return;
       }
@@ -39,15 +39,23 @@ public class MarsRoverTest {
     }
 
     public void moveForward() {
-      if (initialDirection == WEST) {
+      if (direction == WEST) {
         position.x--;
         return;
       }
-      if (initialDirection == EAST) {
+      if (direction == EAST) {
         position.x++;
         return;
       }
+      if (direction == NORTH) {
+        position.y++;
+        return;
+      }
       position.y--;
+    }
+
+    public void turnRight() {
+
     }
   }
 
@@ -104,6 +112,19 @@ W   1 * . X .   E
 
         S
    */
+
+  @Nested
+  class MoveRightScenarios {
+
+    @Test
+    void should_turn_to_south_when_facing_east() {
+      MarsRover rover = new MarsRover(2, 1, EAST);
+
+      rover.turnRight();
+
+      assertThat(rover.direction).isEqualTo(SOUTH);
+    }
+  }
 
   @Nested
   class ForwardScenarios {
