@@ -43,6 +43,10 @@ public class MarsRoverTest {
         position.x--;
         return;
       }
+      if (initialDirection == EAST) {
+        position.x++;
+        return;
+      }
       position.y--;
     }
   }
