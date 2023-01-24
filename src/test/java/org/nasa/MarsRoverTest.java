@@ -156,6 +156,15 @@ W   1 * . X .   E
 
       assertThat(rover.direction).isEqualTo(WEST);
     }
+
+    @Test
+    void should_turn_to_north_when_facing_east() {
+      MarsRover rover = new MarsRover(2, 1, EAST);
+
+      rover.turnLeft();
+
+      assertThat(rover.direction).isEqualTo(NORTH);
+    }
   }
 
   @Nested
