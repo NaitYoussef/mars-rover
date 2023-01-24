@@ -6,6 +6,7 @@ import static org.nasa.MarsRoverTest.Direction.NORTH;
 import static org.nasa.MarsRoverTest.Direction.SOUTH;
 import static org.nasa.MarsRoverTest.Direction.WEST;
 
+import java.util.Arrays;
 import java.util.Objects;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -48,59 +49,18 @@ public class MarsRoverTest {
     }
 
     public void turnRight() {
-      if (direction == NORTH) {
-        direction = EAST;
-        return;
-      }
-      if (direction == SOUTH) {
-        direction = WEST;
-        return;
-      }
-      if (direction == WEST) {
-        direction = NORTH;
-        return;
-      }
-      direction = SOUTH;
+      direction = direction.nextOnTheRight();
     }
 
     public void turnLeft() {
-      if (direction == NORTH) {
-        direction = WEST;
-        return;
-      }
-      if (direction == EAST) {
-        direction = NORTH;
-        return;
-      }
-      if (direction == SOUTH) {
-        direction = EAST;
-        return;
-      }
-      direction = SOUTH;
+      direction = direction.turnLeft();
     }
   }
 
   public static class Compass {
 
     public Direction opposite(Direction direction) {
-      Direction opposite;
-      switch (direction) {
-        case NORTH:
-          opposite = SOUTH;
-          break;
-        case SOUTH:
-          opposite = NORTH;
-          break;
-        case WEST:
-          opposite = EAST;
-          break;
-        case EAST:
-          opposite = WEST;
-          break;
-        default:
-          throw new IllegalArgumentException(direction + " is not handled");
-      }
-      return opposite;
+      return direction.opposite();
     }
   }
 
@@ -138,12 +98,43 @@ public class MarsRoverTest {
   }
 
   public enum Direction {
-    NORTH('N'), SOUTH('S'), WEST('W'), EAST('E');
+    NORTH('N', 0), EAST('E', 25), SOUTH('S', 50), WEST('W', 75);
 
     private char direction;
+    private int angle;
 
-    Direction(char direction) {
+    Direction(char direction, int angle) {
       this.direction = direction;
+      this.angle = angle;
+    }
+
+    public Direction opposite() {
+      return fromAngle((angle + 50) % 100);
+    }
+
+    public Direction nextOnTheRight() {
+      int nextAngleOffset = calculateNextAngleOffset(angle);
+      return fromAngle(nextAngleOffset);
+    }
+
+    public Direction turnLeft() {
+      int previousAngle = calculatePreviousAngleOffset(angle);
+      return fromAngle(previousAngle);
+    }
+
+    private int calculatePreviousAngleOffset(int angle) {
+      return (angle + 75) % 100;
+    }
+
+    private int calculateNextAngleOffset(int angle) {
+      return (angle + 25) % 100;
+    }
+
+    private static Direction fromAngle(int angle) {
+      return Arrays.stream(Direction.values())
+          .filter(direction -> direction.angle == angle)
+          .findFirst()
+          .orElseThrow(() -> new IllegalArgumentException("unhandled angle with value " + angle));
     }
   }
 
@@ -317,5 +308,4 @@ W   1 * . X .   E
       assertThat(rover.position).isEqualTo(new Position(1, 1));
     }
   }
-
 }
