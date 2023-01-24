@@ -61,7 +61,7 @@ W   1 * . X .   E
    */
 
   @Test
-  public void should_move_back_ward_when_facing_direction_is_south() {
+  public void should_move_backward_when_facing_direction_is_south() {
     MarsRover rover = new MarsRover(2, 1, SOUTH);
 
     rover.moveBackward();
@@ -71,7 +71,7 @@ W   1 * . X .   E
   }
 
   @Test
-  public void should_move_back_ward_when_facing_direction_is_west() {
+  public void should_move_backward_when_facing_direction_is_west() {
     MarsRover rover = new MarsRover(2, 1, WEST);
 
     rover.moveBackward();
@@ -81,7 +81,7 @@ W   1 * . X .   E
   }
 
   @Test
-  public void should_move_back_ward_when_facing_direction_is_north() {
+  public void should_move_backward_when_facing_direction_is_north() {
     MarsRover rover = new MarsRover(2, 1, NORTH);
 
     rover.moveBackward();
@@ -91,7 +91,7 @@ W   1 * . X .   E
   }
 
   @Test
-  public void should_move_back_ward_when_facing_direction_is_east() {
+  public void should_move_backward_when_facing_direction_is_east() {
     MarsRover rover = new MarsRover(2, 1, EAST);
 
     rover.moveBackward();
