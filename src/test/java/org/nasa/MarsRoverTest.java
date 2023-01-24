@@ -27,11 +27,11 @@ public class MarsRoverTest {
       this.position = new Position(x, y);
     }
 
-    public void moveBackward() {
+    private void moveBackward() {
       move(direction.opposite());
     }
 
-    public void moveForward() {
+    private void moveForward() {
       move(direction);
     }
 
@@ -50,11 +50,11 @@ public class MarsRoverTest {
       }
     }
 
-    public void turnRight() {
+    private void turnRight() {
       direction = direction.nextOnTheRight();
     }
 
-    public void turnLeft() {
+    private void turnLeft() {
       direction = direction.turnLeft();
     }
 
