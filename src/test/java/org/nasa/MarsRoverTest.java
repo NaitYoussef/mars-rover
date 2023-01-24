@@ -121,6 +121,15 @@ W   1 * . X .   E
   class MoveRightScenarios {
 
     @Test
+    void should_turn_to_west_when_facing_south() {
+      MarsRover rover = new MarsRover(2, 1, SOUTH);
+
+      rover.turnRight();
+
+      assertThat(rover.direction).isEqualTo(WEST);
+    }
+
+    @Test
     void should_turn_to_south_when_facing_east() {
       MarsRover rover = new MarsRover(2, 1, EAST);
 
