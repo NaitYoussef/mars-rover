@@ -59,8 +59,12 @@ public class MarsRoverTest {
         direction = EAST;
         return;
       }
-      if (direction == SOUTH){
+      if (direction == SOUTH) {
         direction = WEST;
+        return;
+      }
+      if (direction == WEST) {
+        direction = NORTH;
         return;
       }
       direction = SOUTH;
