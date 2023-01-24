@@ -12,6 +12,7 @@ import static org.nasa.MarsRoverTest.Direction.WEST;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Optional;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +40,7 @@ public class MarsRoverTest {
 
     private boolean move(Direction direction) {
       Position nextPosition = determineNextPosition(direction);
-      if(map.isObstacle(nextPosition)){
+      if (map.isObstacle(nextPosition)) {
         return false;
       }
       this.position = nextPosition;
@@ -75,6 +76,11 @@ public class MarsRoverTest {
         command.execute(this);
       }
     }
+
+    public Optional<Position> failureReportPosition() {
+      return Optional.empty();
+    }
+
   }
 
   public static class MarsMap {
@@ -105,7 +111,7 @@ public class MarsRoverTest {
       return new MarsMap(map);
     }
 
-    public boolean isObstacle(Position position){
+    public boolean isObstacle(Position position) {
       return this.land[position.y][position.x] == 1;
     }
   }
@@ -324,6 +330,7 @@ W   1 * . X .   E
       rover.moveForward();
 
       assertThat(rover.position).isEqualTo(new Position(2, 0));
+      assertThat(rover.failureReportPosition()).contains(new Position(3, 0));
     }
 
     @Test
