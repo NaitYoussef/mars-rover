@@ -104,12 +104,19 @@ public class MarsRoverTest {
       return new MarsMap(map);
     }
 
+    /*
+  3  0 0 0 1
+  2  0 0 1 0
+  1  0 1 0 0
+  0  1 0 0 0
+     0 1 2 3
+     */
     public static MarsMap withObstacles() {
       int[][] map = {
-          {0, 0, 0, 1},
-          {0, 0, 1, 0},
+          {1, 0, 0, 0},
           {0, 1, 0, 0},
-          {1, 0, 0, 0}
+          {0, 0, 1, 0},
+          {0, 0, 0, 1}
       };
       return new MarsMap(map);
     }
@@ -240,6 +247,17 @@ W   1 * . X .   E
       rover.executeCommands(commands);
 
       assertThat(rover.position).isEqualTo(new Position(3, 2));
+    }
+
+    @Test
+    void should_execute_sequence_with_failure() {
+      MarsRover rover = new MarsRover(1, 0, EAST, MarsMap.withObstacles());
+      Command[] commands = {F, R, B, B};
+
+      rover.executeCommands(commands);
+
+      assertThat(rover.position).isEqualTo(new Position(2, 1));
+      assertThat(rover.failureReportPosition()).contains(new Position(2, 2));
     }
   }
 
