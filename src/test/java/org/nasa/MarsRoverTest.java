@@ -314,12 +314,13 @@ W   1 * . X .   E
   @Nested
   class MoveLeftScenarios {
 
-    private Command[] moveLeftCommand = {L};
+    private final Command[] moveLeft = {L};
+
     @Test
     void should_turn_to_south_when_facing_west() {
       MarsRover rover = new MarsRover(2, 1, WEST, MarsMap.withoutObstacles());
 
-      rover.executeCommands(moveLeftCommand);
+      rover.executeCommands(moveLeft);
 
       assertThat(rover.direction).isEqualTo(SOUTH);
     }
@@ -328,7 +329,7 @@ W   1 * . X .   E
     void should_turn_to_west_when_facing_north() {
       MarsRover rover = new MarsRover(2, 1, NORTH, MarsMap.withoutObstacles());
 
-      rover.executeCommands(moveLeftCommand);
+      rover.executeCommands(moveLeft);
 
       assertThat(rover.direction).isEqualTo(WEST);
     }
@@ -337,7 +338,7 @@ W   1 * . X .   E
     void should_turn_to_north_when_facing_east() {
       MarsRover rover = new MarsRover(2, 1, EAST, MarsMap.withoutObstacles());
 
-      rover.executeCommands(moveLeftCommand);
+      rover.executeCommands(moveLeft);
 
       assertThat(rover.direction).isEqualTo(NORTH);
     }
@@ -346,7 +347,7 @@ W   1 * . X .   E
     void should_turn_to_east_when_facing_south() {
       MarsRover rover = new MarsRover(2, 1, SOUTH, MarsMap.withoutObstacles());
 
-      rover.executeCommands(moveLeftCommand);
+      rover.executeCommands(moveLeft);
 
       assertThat(rover.direction).isEqualTo(EAST);
     }
@@ -355,11 +356,13 @@ W   1 * . X .   E
   @Nested
   class MoveRightScenarios {
 
+    private final Command[] moveRight = {R};
+
     @Test
     void should_turn_to_north_when_facing_west() {
       MarsRover rover = new MarsRover(2, 1, WEST, MarsMap.withoutObstacles());
 
-      rover.turnRight();
+      rover.executeCommands(moveRight);
 
       assertThat(rover.direction).isEqualTo(NORTH);
     }
@@ -368,7 +371,7 @@ W   1 * . X .   E
     void should_turn_to_west_when_facing_south() {
       MarsRover rover = new MarsRover(2, 1, SOUTH, MarsMap.withoutObstacles());
 
-      rover.turnRight();
+      rover.executeCommands(moveRight);
 
       assertThat(rover.direction).isEqualTo(WEST);
     }
@@ -377,7 +380,7 @@ W   1 * . X .   E
     void should_turn_to_south_when_facing_east() {
       MarsRover rover = new MarsRover(2, 1, EAST, MarsMap.withoutObstacles());
 
-      rover.turnRight();
+      rover.executeCommands(moveRight);
 
       assertThat(rover.direction).isEqualTo(SOUTH);
     }
@@ -386,7 +389,7 @@ W   1 * . X .   E
     void should_turn_to_east_when_facing_north() {
       MarsRover rover = new MarsRover(2, 1, NORTH, MarsMap.withoutObstacles());
 
-      rover.turnRight();
+      rover.executeCommands(moveRight);
 
       assertThat(rover.direction).isEqualTo(EAST);
     }
