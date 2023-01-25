@@ -1,10 +1,10 @@
 package org.nasa;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.nasa.Command.B;
-import static org.nasa.Command.F;
-import static org.nasa.Command.L;
-import static org.nasa.Command.R;
+import static org.nasa.MarsRover.Command.B;
+import static org.nasa.MarsRover.Command.F;
+import static org.nasa.MarsRover.Command.L;
+import static org.nasa.MarsRover.Command.R;
 import static org.nasa.Direction.EAST;
 import static org.nasa.Direction.NORTH;
 import static org.nasa.Direction.SOUTH;

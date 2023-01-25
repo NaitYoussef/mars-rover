@@ -16,11 +16,11 @@ public class MarsRover {
     this.failurePosition = null;
   }
 
-  boolean moveBackward() {
+  private boolean moveBackward() {
     return move(direction.opposite());
   }
 
-  boolean moveForward() {
+  private boolean moveForward() {
     return move(direction);
   }
 
@@ -53,12 +53,12 @@ public class MarsRover {
     throw new IllegalArgumentException(direction + " is not handled");
   }
 
-  boolean turnRight() {
+  private boolean turnRight() {
     direction = direction.nextOnTheRight();
     return true;
   }
 
-  boolean turnLeft() {
+  private boolean turnLeft() {
     direction = direction.nextOnTheLeft();
     return true;
   }
@@ -87,4 +87,27 @@ public class MarsRover {
     return Optional.ofNullable(failurePosition);
   }
 
+  public enum Command {
+    F('F', MarsRover::moveForward),
+    B('B', MarsRover::moveBackward),
+    L('L', MarsRover::turnLeft),
+    R('R', MarsRover::turnRight);
+
+    private final char command;
+    private final RoverAction action;
+
+    Command(char command, RoverAction action) {
+      this.command = command;
+      this.action = action;
+    }
+
+    public boolean execute(MarsRover marsRover) {
+      return this.action.execute(marsRover);
+    }
+
+    interface RoverAction {
+
+      boolean execute(MarsRover marsRover);
+    }
+  }
 }
