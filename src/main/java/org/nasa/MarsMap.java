@@ -49,7 +49,7 @@ public class MarsMap {
     return this.land[position.y][position.x] == 1;
   }
 
-  public boolean unReachable(Position position) {
+  public boolean outOfMap(Position position) {
     return this.height < position.y + 1 || this.width < position.x + 1;
   }
 }

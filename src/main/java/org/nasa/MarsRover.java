@@ -26,7 +26,7 @@ public class MarsRover {
 
   private boolean move(Direction direction) {
     Position nextPosition = determineNextPosition(direction);
-    if (map.unReachable(nextPosition)) {
+    if (map.outOfMap(nextPosition)) {
       return true;
     }
     if (map.isObstacle(nextPosition)) {
