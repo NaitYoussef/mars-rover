@@ -24,13 +24,13 @@ public class MarsRoverTest {
     private Direction direction;
     private final MarsMap map;
     private Position position;
-    private Optional<Position> failurePosition;
+    private Position failurePosition;
 
     public MarsRover(int x, int y, Direction direction, MarsMap map) {
       this.direction = direction;
       this.map = map;
       this.position = new Position(x, y);
-      this.failurePosition = Optional.empty();
+      this.failurePosition = null;
     }
 
     private boolean moveBackward() {
@@ -47,7 +47,7 @@ public class MarsRoverTest {
         return true;
       }
       if (map.isObstacle(nextPosition)) {
-        this.failurePosition = Optional.of(nextPosition);
+        this.failurePosition = nextPosition;
         return false;
       }
       this.position = nextPosition;
@@ -93,7 +93,7 @@ public class MarsRoverTest {
     }
 
     public Optional<Position> failureReportPosition() {
-      return failurePosition;
+      return Optional.ofNullable(failurePosition);
     }
 
   }
