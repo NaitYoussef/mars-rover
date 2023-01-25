@@ -2,7 +2,6 @@ package org.nasa;
 
 import java.util.Optional;
 
-// TODO move these classes to a their packages
 public class MarsRover {
 
   private Direction direction;
