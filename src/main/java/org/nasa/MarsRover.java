@@ -39,10 +39,10 @@ public class MarsRover {
 
   private Position determineNextPosition(Direction direction) {
     if (facingNorth(direction)) {
-      return new Position(this.position.x(), this.position.y + 1);
+      return this.position.incY();
     }
     if (facingSouth(direction)) {
-      return new Position(this.position.x(), this.position.y - 1);
+      return this.position.decY();
     }
     if (facingWest(direction)) {
       return this.position.decX();

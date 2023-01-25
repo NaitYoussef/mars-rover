@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Position {
 
   private final int x;
-  final int y;
+  private final int y;
 
   public Position(int x, int y) {
     this.x = x;
@@ -20,8 +20,20 @@ public class Position {
     return new Position(this.x - 1, this.y);
   }
 
-  public int x(){
+  public Position incY() {
+    return new Position(this.x, this.y + 1);
+  }
+
+  public Position decY() {
+    return new Position(this.x, this.y - 1);
+  }
+
+  public int x() {
     return this.x;
+  }
+
+  public int y() {
+    return this.y;
   }
 
   @Override

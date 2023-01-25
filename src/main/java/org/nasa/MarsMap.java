@@ -46,10 +46,10 @@ public class MarsMap {
   }
 
   public boolean isObstacle(Position position) {
-    return this.land[position.y][position.x()] == 1;
+    return this.land[position.y()][position.x()] == 1;
   }
 
   public boolean outOfMap(Position position) {
-    return this.height < position.y + 1 || this.width < position.x() + 1;
+    return this.height < position.y() + 1 || this.width < position.x() + 1;
   }
 }
