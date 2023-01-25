@@ -281,6 +281,17 @@ W   1 * . X .   E
       assertThat(rover.position).isEqualTo(new Position(2, 0));
       assertThat(rover.failureReportPosition()).isEmpty();
     }
+
+    @Test
+    void should_spot_executing_sequence_on_obstacle() {
+      MarsRover rover = new MarsRover(1, 0, EAST, MarsMap.withObstacles());
+      Command[] commands = {B, F, F, F, F, F, F};
+
+      rover.executeCommands(commands);
+
+      assertThat(rover.position).isEqualTo(new Position(1, 0));
+      assertThat(rover.failureReportPosition()).contains(new Position(0, 0));
+    }
   }
 
   @Nested
