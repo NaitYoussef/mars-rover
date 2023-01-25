@@ -2,7 +2,7 @@ package org.nasa;
 
 public class MarsMap {
 
-  int[][] land;
+  private int[][] land;
   private final int width;
   private final int height;
 
