@@ -32,12 +32,12 @@ public class MarsRoverTest {
       this.failurePosition = Optional.empty();
     }
 
-    private void moveBackward() {
-      move(direction.opposite());
+    private boolean moveBackward() {
+      return move(direction.opposite());
     }
 
-    private void moveForward() {
-      move(direction);
+    private boolean moveForward() {
+      return move(direction);
     }
 
     private boolean move(Direction direction) {
@@ -69,18 +69,26 @@ public class MarsRoverTest {
       throw new IllegalArgumentException(direction + " is not handled");
     }
 
-    private void turnRight() {
+    private boolean turnRight() {
       direction = direction.nextOnTheRight();
+      return true;
     }
 
-    private void turnLeft() {
+    private boolean turnLeft() {
       direction = direction.turnLeft();
+      return true;
     }
 
     public void executeCommands(Command[] commands) {
       for (Command command : commands) {
-        command.execute(this);
+        if (hasExecutionFailed(command, this)) {
+          break;
+        }
       }
+    }
+
+    private static boolean hasExecutionFailed(Command command, MarsRover marsRover) {
+      return !command.execute(marsRover);
     }
 
     public Optional<Position> failureReportPosition() {
@@ -226,13 +234,13 @@ public class MarsRoverTest {
       this.action = action;
     }
 
-    public void execute(MarsRover marsRover) {
-      this.action.execute(marsRover);
+    public boolean execute(MarsRover marsRover) {
+      return this.action.execute(marsRover);
     }
 
     interface RoverAction {
 
-      void execute(MarsRover marsRover);
+      boolean execute(MarsRover marsRover);
     }
   }
 
