@@ -18,10 +18,11 @@ import org.junit.jupiter.api.Test;
 
 public class MarsRoverTest {
 
+  // TODO move these classes to a their packages
   public static class MarsRover {
 
     private Direction direction;
-    private MarsMap map;
+    private final MarsMap map;
     private Position position;
     private Optional<Position> failurePosition;
 
@@ -100,8 +101,8 @@ public class MarsRoverTest {
   public static class MarsMap {
 
     int[][] land;
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     public MarsMap(int[][] land, int width, int height) {
       this.land = land;
@@ -147,8 +148,8 @@ public class MarsRoverTest {
 
   public static class Position {
 
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public Position(int x, int y) {
       this.x = x;
@@ -181,8 +182,8 @@ public class MarsRoverTest {
   public enum Direction {
     NORTH('N', 0), EAST('E', 25), SOUTH('S', 50), WEST('W', 75);
 
-    private char direction;
-    private int angle;
+    private final char direction;
+    private final int angle;
 
     Direction(char direction, int angle) {
       this.direction = direction;
