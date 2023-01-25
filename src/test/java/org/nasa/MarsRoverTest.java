@@ -42,6 +42,9 @@ public class MarsRoverTest {
 
     private boolean move(Direction direction) {
       Position nextPosition = determineNextPosition(direction);
+      if (map.unReachable(nextPosition)) {
+        return true;
+      }
       if (map.isObstacle(nextPosition)) {
         this.failurePosition = Optional.of(nextPosition);
         return false;
@@ -89,9 +92,13 @@ public class MarsRoverTest {
   public static class MarsMap {
 
     int[][] land;
+    private int width;
+    private int height;
 
-    public MarsMap(int[][] land) {
+    public MarsMap(int[][] land, int width, int height) {
       this.land = land;
+      this.width = width;
+      this.height = height;
     }
 
     public static MarsMap withoutObstacles() {
@@ -101,7 +108,7 @@ public class MarsRoverTest {
           {0, 0, 0, 0},
           {0, 0, 0, 0}
       };
-      return new MarsMap(map);
+      return new MarsMap(map, 4, 4);
     }
 
     /*
@@ -118,11 +125,15 @@ public class MarsRoverTest {
           {0, 0, 1, 0},
           {0, 0, 0, 1}
       };
-      return new MarsMap(map);
+      return new MarsMap(map, 4, 4);
     }
 
     public boolean isObstacle(Position position) {
       return this.land[position.y][position.x] == 1;
+    }
+
+    public boolean unReachable(Position position) {
+      return this.height < position.y + 1 || this.width < position.x + 1;
     }
   }
 
@@ -259,6 +270,17 @@ W   1 * . X .   E
       assertThat(rover.position).isEqualTo(new Position(2, 1));
       assertThat(rover.failureReportPosition()).contains(new Position(2, 2));
     }
+
+    @Test
+    void should_stop_on_edge() {
+      MarsRover rover = new MarsRover(3, 0, EAST, MarsMap.withoutObstacles());
+      Command[] commands = {F, F, B};
+
+      rover.executeCommands(commands);
+
+      assertThat(rover.position).isEqualTo(new Position(2, 0));
+      assertThat(rover.failureReportPosition()).isEmpty();
+    }
   }
 
   @Nested
@@ -346,12 +368,12 @@ W   1 * . X .   E
 
     @Test
     void should_not_move_when_obstacle() {
-      MarsRover rover = new MarsRover(2, 0, EAST, MarsMap.withObstacles());
+      MarsRover rover = new MarsRover(1, 0, WEST, MarsMap.withObstacles());
 
       rover.moveForward();
 
-      assertThat(rover.position).isEqualTo(new Position(2, 0));
-      assertThat(rover.failureReportPosition()).contains(new Position(3, 0));
+      assertThat(rover.position).isEqualTo(new Position(1, 0));
+      assertThat(rover.failureReportPosition()).contains(new Position(0, 0));
     }
 
     @Test
@@ -396,12 +418,12 @@ W   1 * . X .   E
 
     @Test
     void should_not_move_when_obstacle() {
-      MarsRover rover = new MarsRover(1, 3, EAST, MarsMap.withObstacles());
+      MarsRover rover = new MarsRover(3, 2, EAST, MarsMap.withObstacles());
 
       rover.moveBackward();
 
-      assertThat(rover.position).isEqualTo(new Position(1, 3));
-      assertThat(rover.failureReportPosition()).contains(new Position(0, 3));
+      assertThat(rover.position).isEqualTo(new Position(3, 2));
+      assertThat(rover.failureReportPosition()).contains(new Position(2, 2));
     }
 
     @Test
