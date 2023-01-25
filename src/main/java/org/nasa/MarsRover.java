@@ -38,19 +38,35 @@ public class MarsRover {
   }
 
   private Position determineNextPosition(Direction direction) {
-    if (direction == Direction.NORTH) {
+    if (facingNorth(direction)) {
       return new Position(this.position.x, this.position.y + 1);
     }
-    if (direction == Direction.SOUTH) {
+    if (facingSouth(direction)) {
       return new Position(this.position.x, this.position.y - 1);
     }
-    if (direction == Direction.WEST) {
+    if (facingWest(direction)) {
       return new Position(this.position.x - 1, this.position.y);
     }
-    if (direction == Direction.EAST) {
+    if (facingEast(direction)) {
       return new Position(this.position.x + 1, this.position.y);
     }
     throw new IllegalArgumentException(direction + " is not handled");
+  }
+
+  private static boolean facingEast(Direction direction) {
+    return direction == Direction.EAST;
+  }
+
+  private static boolean facingWest(Direction direction) {
+    return direction == Direction.WEST;
+  }
+
+  private static boolean facingSouth(Direction direction) {
+    return direction == Direction.SOUTH;
+  }
+
+  private static boolean facingNorth(Direction direction) {
+    return direction == Direction.NORTH;
   }
 
   private boolean turnRight() {
