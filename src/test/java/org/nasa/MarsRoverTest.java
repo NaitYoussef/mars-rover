@@ -27,7 +27,7 @@ W   1 * . X .   E
    */
 
   @Nested
-  class CommandsScenarios {
+  class CommandsSequenceScenarios {
 
     @Test
     void should_execute_sequence_without_failure() {
