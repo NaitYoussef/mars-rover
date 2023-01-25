@@ -76,7 +76,7 @@ public class MarsRoverTest {
     }
 
     private boolean turnLeft() {
-      direction = direction.turnLeft();
+      direction = direction.nextOnTheLeft();
       return true;
     }
 
@@ -200,7 +200,7 @@ public class MarsRoverTest {
       return fromAngle(nextAngleOffset);
     }
 
-    public Direction turnLeft() {
+    public Direction nextOnTheLeft() {
       int previousAngle = calculatePreviousAngleOffset(angle);
       return fromAngle(previousAngle);
     }
