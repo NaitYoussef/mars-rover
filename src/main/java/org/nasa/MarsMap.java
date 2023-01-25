@@ -11,7 +11,13 @@ public class MarsMap {
     this.width = width;
     this.height = height;
   }
-
+  /*
+3  0 0 0 0
+2  0 0 0 0
+1  0 0 0 0
+0  0 0 0 0
+   0 1 2 3
+   */
   public static MarsMap withoutObstacles() {
     int[][] map = {
         {0, 0, 0, 0},
