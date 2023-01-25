@@ -2,36 +2,49 @@ package org.nasa;
 
 import java.util.Arrays;
 
-public enum Direction {
+public enum Compass {
   // TODO maybe direction can point as to the next position instead of rover calculating it
-  NORTH('N', 0),
-  EAST('E', Direction.HALF_PI_IN_DEGREES),
-  SOUTH('S', Direction.PI_IN_DEGREES),
-  WEST('W', Direction.HALF_PI_IN_DEGREES * 3);
+  NORTH('N', 0, Position::incY),
+  EAST('E', Compass.HALF_PI_IN_DEGREES, Position::incX),
+  SOUTH('S', Compass.PI_IN_DEGREES, Position::decY),
+  WEST('W', Compass.HALF_PI_IN_DEGREES * 3, Position::decX);
 
   private static final int PI_IN_DEGREES = 180;
   private static final int HALF_PI_IN_DEGREES = 90;
   private final char direction;
   private final int angle;
+  private final PositionNavigator positionNavigator;
 
-  Direction(char direction, int angle) {
+  Compass(char direction, int angle, PositionNavigator positionNavigator) {
     this.direction = direction;
     this.angle = angle;
+    this.positionNavigator = positionNavigator;
   }
 
-  public Direction opposite() {
+  public Compass opposite() {
     int nextAngleOffset = calculateNextAngleOffset(calculateNextAngleOffset(angle));
     return fromAngle(nextAngleOffset);
   }
 
-  public Direction nextOnTheRight() {
+  public Compass nextOnTheRight() {
     int nextAngleOffset = calculateNextAngleOffset(angle);
     return fromAngle(nextAngleOffset);
   }
 
-  public Direction nextOnTheLeft() {
+  public Compass nextOnTheLeft() {
     int previousAngle = calculatePreviousAngleOffset(angle);
     return fromAngle(previousAngle);
+  }
+
+  public Position determineNextPosition(Position position) {
+    return this.positionNavigator.calculateNext(position);
+  }
+
+  private static Compass fromAngle(int angle) {
+    return Arrays.stream(Compass.values())
+        .filter(compass -> compass.angle == angle)
+        .findFirst()
+        .orElseThrow(() -> new IllegalArgumentException("unhandled angle with value " + angle));
   }
 
   private int calculatePreviousAngleOffset(int angle) {
@@ -45,10 +58,8 @@ public enum Direction {
     return (angle + HALF_PI_IN_DEGREES) % doublePi;
   }
 
-  private static Direction fromAngle(int angle) {
-    return Arrays.stream(Direction.values())
-        .filter(direction -> direction.angle == angle)
-        .findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("unhandled angle with value " + angle));
+  interface PositionNavigator {
+
+    Position calculateNext(Position position);
   }
 }

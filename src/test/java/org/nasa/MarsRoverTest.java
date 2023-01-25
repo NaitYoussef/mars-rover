@@ -5,10 +5,10 @@ import static org.nasa.MarsRover.Command.B;
 import static org.nasa.MarsRover.Command.F;
 import static org.nasa.MarsRover.Command.L;
 import static org.nasa.MarsRover.Command.R;
-import static org.nasa.Direction.EAST;
-import static org.nasa.Direction.NORTH;
-import static org.nasa.Direction.SOUTH;
-import static org.nasa.Direction.WEST;
+import static org.nasa.Compass.EAST;
+import static org.nasa.Compass.NORTH;
+import static org.nasa.Compass.SOUTH;
+import static org.nasa.Compass.WEST;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

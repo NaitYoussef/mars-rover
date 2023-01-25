@@ -4,28 +4,28 @@ import java.util.Optional;
 
 public class MarsRover {
 
-  private Direction direction;
+  private Compass compass;
   private final MarsMap map;
   private Position position;
   private Position failurePosition;
 
-  public MarsRover(int x, int y, Direction direction, MarsMap map) {
-    this.direction = direction;
+  public MarsRover(int x, int y, Compass compass, MarsMap map) {
+    this.compass = compass;
     this.map = map;
     this.position = new Position(x, y);
     this.failurePosition = null;
   }
 
   private boolean moveBackward() {
-    return move(direction.opposite());
+    return move(compass.opposite());
   }
 
   private boolean moveForward() {
-    return move(direction);
+    return move(compass);
   }
 
-  private boolean move(Direction direction) {
-    Position nextPosition = determineNextPosition(direction);
+  private boolean move(Compass compass) {
+    Position nextPosition = determineNextPosition(compass);
     if (map.outOfMap(nextPosition)) {
       return true;
     }
@@ -37,45 +37,17 @@ public class MarsRover {
     return true;
   }
 
-  private Position determineNextPosition(Direction direction) {
-    if (facingNorth(direction)) {
-      return this.position.incY();
-    }
-    if (facingSouth(direction)) {
-      return this.position.decY();
-    }
-    if (facingWest(direction)) {
-      return this.position.decX();
-    }
-    if (facingEast(direction)) {
-      return this.position.incX();
-    }
-    throw new IllegalArgumentException(direction + " is not handled");
-  }
-
-  private static boolean facingEast(Direction direction) {
-    return direction == Direction.EAST;
-  }
-
-  private static boolean facingWest(Direction direction) {
-    return direction == Direction.WEST;
-  }
-
-  private static boolean facingSouth(Direction direction) {
-    return direction == Direction.SOUTH;
-  }
-
-  private static boolean facingNorth(Direction direction) {
-    return direction == Direction.NORTH;
+  private Position determineNextPosition(Compass compass) {
+    return compass.determineNextPosition(this.position);
   }
 
   private boolean turnRight() {
-    direction = direction.nextOnTheRight();
+    compass = compass.nextOnTheRight();
     return true;
   }
 
   private boolean turnLeft() {
-    direction = direction.nextOnTheLeft();
+    compass = compass.nextOnTheLeft();
     return true;
   }
 
@@ -91,8 +63,8 @@ public class MarsRover {
     return position;
   }
 
-  public Direction currentDirection() {
-    return direction;
+  public Compass currentDirection() {
+    return compass;
   }
 
   private static boolean hasExecutionFailed(Command command, MarsRover marsRover) {
