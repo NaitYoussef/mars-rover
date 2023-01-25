@@ -180,8 +180,13 @@ public class MarsRoverTest {
   }
 
   public enum Direction {
-    NORTH('N', 0), EAST('E', 25), SOUTH('S', 50), WEST('W', 75);
+    NORTH('N', 0),
+    EAST('E', Direction.HALF_PI_IN_DEGREES),
+    SOUTH('S', Direction.PI_IN_DEGREES),
+    WEST('W', Direction.HALF_PI_IN_DEGREES * 3);
 
+    private static final int PI_IN_DEGREES = 180;
+    private static final int HALF_PI_IN_DEGREES = 90;
     private final char direction;
     private final int angle;
 
@@ -206,11 +211,14 @@ public class MarsRoverTest {
     }
 
     private int calculatePreviousAngleOffset(int angle) {
-      return (angle + 75) % 100;
+      int treeHalvesOfPie = HALF_PI_IN_DEGREES * 3;
+      int doublePi = 2 * PI_IN_DEGREES;
+      return (angle + treeHalvesOfPie) % doublePi;
     }
 
     private int calculateNextAngleOffset(int angle) {
-      return (angle + 25) % 100;
+      int doublePi = 2 * PI_IN_DEGREES;
+      return (angle + HALF_PI_IN_DEGREES) % doublePi;
     }
 
     private static Direction fromAngle(int angle) {
