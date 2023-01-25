@@ -3,6 +3,7 @@ package org.nasa;
 import java.util.Arrays;
 
 public enum Direction {
+  // TODO maybe direction can point as to the next position instead of rover calculating it
   NORTH('N', 0),
   EAST('E', Direction.HALF_PI_IN_DEGREES),
   SOUTH('S', Direction.PI_IN_DEGREES),
