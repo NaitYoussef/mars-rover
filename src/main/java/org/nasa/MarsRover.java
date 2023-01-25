@@ -39,16 +39,16 @@ public class MarsRover {
 
   private Position determineNextPosition(Direction direction) {
     if (facingNorth(direction)) {
-      return new Position(this.position.x, this.position.y + 1);
+      return new Position(this.position.x(), this.position.y + 1);
     }
     if (facingSouth(direction)) {
-      return new Position(this.position.x, this.position.y - 1);
+      return new Position(this.position.x(), this.position.y - 1);
     }
     if (facingWest(direction)) {
-      return new Position(this.position.x - 1, this.position.y);
+      return this.position.decX();
     }
     if (facingEast(direction)) {
-      return new Position(this.position.x + 1, this.position.y);
+      return this.position.incX();
     }
     throw new IllegalArgumentException(direction + " is not handled");
   }

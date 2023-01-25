@@ -4,12 +4,24 @@ import java.util.Objects;
 
 public class Position {
 
-  final int x;
+  private final int x;
   final int y;
 
   public Position(int x, int y) {
     this.x = x;
     this.y = y;
+  }
+
+  public Position incX() {
+    return new Position(this.x + 1, this.y);
+  }
+
+  public Position decX() {
+    return new Position(this.x - 1, this.y);
+  }
+
+  public int x(){
+    return this.x;
   }
 
   @Override
